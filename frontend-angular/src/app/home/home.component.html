@@ -1,0 +1,56 @@
+<div class="app-bg">
+  <div class="container">
+    <div class="header-center hero">
+      <img class="mascot-hero" src="/assets/AIDA.png" alt="AIDA">
+      <img class="logo" src="/assets/logo.png" alt="Advantis">
+      <h1 class="brand-title">ADVANTIS ASSISTANT</h1>
+      <h1 class="project-title">AIDA</h1>
+      <p class="brand-sub">Ask. Retrieve. Answer.</p>
+    </div>
+
+    <!-- Home view -->
+    <div class="card splash">
+      <div class="splash-inner">
+        <h2>Your single source for all things Advantis.</h2>
+        <p>Grounded by your documents, accelerated by retrieval‑augmented generation.</p>
+        <div class="splash-actions">
+          <button class="btn primary" (click)="goChat()">Start Chat</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chat view -->
+    <div #chatSection id="chat" class="card chat-card">
+      <div class="chat-header"><h2>ADVANTIS ASSISTANT</h2></div>
+      <div class="messages">
+        <div class="welcome" *ngIf="turns.length===0">
+          <h3>Welcome to Advantis Assistant</h3>
+          <p>I'm here to help you with all your advantis related questions.</p>
+          <p>Ask me anything about your documents, processes, or procedures.</p>
+        </div>
+        <div *ngFor="let t of turns; let i = index" class="message-row" [ngClass]="t.role">
+          <div class="bubble" [ngClass]="t.role" [innerHTML]="t.html || t.content"></div>
+          <button *ngIf="t.role==='ai'" class="icon-btn speaker"
+                  [class.active]="speakingIndex===i"
+                  (click)="speak(t.content, i)"
+                  [title]="speakingIndex===i ? 'Stop' : 'Speak'">
+            {{ speakingIndex===i ? '⏸' : '🔊' }}
+          </button>
+        </div>
+        <div *ngIf="pending" class="bubble ai">Thinking…</div>
+      </div>
+
+      <div class="composer">
+        <div class="row">
+          <textarea #input class="input" rows="2" placeholder="Got a question? Ask away!"
+                    (keydown)="keyDown($event)"></textarea>
+          <div class="actions">
+            <button class="icon-btn mic" [class.active]="isRecording" (click)="toggleMic()" [title]="isRecording ? 'Stop' : 'Speak'">{{ isRecording ? '⏺' : '🎤' }}</button>
+            <button class="btn send" (click)="send()">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
