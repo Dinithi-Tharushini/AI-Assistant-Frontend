@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
   private recChunks: BlobPart[] = [];
   private renderTimer: any;
 
-  apiBase = (window as any).API_BASE || 'http://localhost:5000';
+  apiBase = (window as any).API_BASE || 'https://ai-assistant-backend-ciq9.vercel.app';
 
   constructor(private http: HttpClient, private api: ApiService, private zone: NgZone) {}
 
