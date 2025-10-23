@@ -28,7 +28,7 @@ export class ChatWidgetComponent implements OnInit {
   private renderTimer: any;
   private currentAudio?: HTMLAudioElement;
 
-  apiBase = (window as any).API_BASE || 'http://localhost:5000';
+  apiBase = (window as any).API_BASE || 'https://ai-assistant-backend-ciq9.vercel.app';
 
   constructor(private http: HttpClient, private api: ApiService, private zone: NgZone) {}
 
